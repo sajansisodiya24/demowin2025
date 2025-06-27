@@ -8,7 +8,7 @@
 
 ---
 - name: Disable IPv6 on Windows Server
-  hosts: windows_servers
+  hosts: all
   gather_facts: no
   tasks:
     - name: Check if IPv6 is already disabled
