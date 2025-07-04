@@ -1,36 +1,8 @@
 #CID- Disable IPv6 on windows
-#- name: Disable IPv6 on Windows
- #become: true
- # tasks:
-  # - name: Disable IPv6 via registry
-   #   ansible.windows.win_shell: |
-   #     New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents" -Value 0xff -PropertyType DWord -Force
-
----
-- name: Disable IPv6 on Windows Server
-  hosts: all
-  gather_facts: no
+- name: Disable IPv6 on Windows
+ become: true
   tasks:
-    - name: Check if IPv6 is already disabled
-      win_shell: |
-        $key = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
-        $value = "DisabledComponents"
-        if ((Get-ItemProperty -Path $key -Name $value -ErrorAction SilentlyContinue).$value -ne 0xFF) {
-          Write-Host "IPv6 is not disabled"
-        } else {
-          Write-Host "IPv6 is already disabled"
-        }
-      register: ipv6_status
+   - name: Disable IPv6 via registry
+      ansible.windows.win_shell: |
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents" -Value 0xff -PropertyType DWord -Force
 
-    - name: Disable IPv6 if it's not already disabled
-      win_shell: |
-        $key = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
-        $value = "DisabledComponents"
-        Set-ItemProperty -Path $key -Name $value -Value 0xFF
-      when: "'IPv6 is not disabled' in ipv6_status.stdout"
-      notify:
-        - Restart network
-
-  handlers:
-    - name: Restart network
-      win_shell: Restart-NetAdapter -Name "*" -Confirm:$false
