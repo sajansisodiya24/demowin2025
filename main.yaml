@@ -9,4 +9,3 @@
         name: DisabledComponents
         data: 0xFF
         type: dword
-      become: yes
