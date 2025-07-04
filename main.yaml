@@ -1,7 +1,7 @@
 # CID- Disable IPv6 on windows
 - name: Disable IPv6 on Windows
-  hosts: all
   become: true
+  become_method: runas
   tasks:
     - name: Disable IPv6 via registry
       ansible.windows.win_shell: |
