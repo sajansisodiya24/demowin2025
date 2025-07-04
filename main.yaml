@@ -1,7 +1,11 @@
 ---
-- name: Disable IPv6 on Windows
-  hosts: all
+- name: Disable IPv6 on Windows Hosts
+  hosts: windows
   tasks:
-    - name: Disable IPv6 via registry
-      ansible.windows.win_shell: |
-        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents" -Value 0xff -PropertyType DWord -Force
+    - name: Disable IPv6
+      win_regedit:
+        path: HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters
+        name: DisabledComponents
+        data: 0xFF
+        type: dword
+      become: yes
