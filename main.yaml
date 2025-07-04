@@ -1,8 +1,7 @@
-#CID- Disable IPv6 on windows
+# CID- Disable IPv6 on windows
 - name: Disable IPv6 on Windows
- become: true
+  become: true
   tasks:
-   - name: Disable IPv6 via registry
+    - name: Disable IPv6 via registry
       ansible.windows.win_shell: |
         New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents" -Value 0xff -PropertyType DWord -Force
-
