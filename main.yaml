@@ -13,7 +13,7 @@
 
 ---
 - name: Disable IPv6 on Windows Hosts
-  hosts: windows
+  #hosts: windows
   gather_facts: no
   tasks:
     - name: Disable IPv6
