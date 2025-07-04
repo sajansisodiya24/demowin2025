@@ -1,5 +1,6 @@
 # CID- Disable IPv6 on windows
 - name: Disable IPv6 on Windows
+  hosts: all
   become: true
   tasks:
     - name: Disable IPv6 via registry
