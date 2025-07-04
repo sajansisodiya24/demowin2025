@@ -1,6 +1,6 @@
 ---
 - name: Disable IPv6 on Windows Hosts
-  hosts: windows
+  hosts: all
   tasks:
     - name: Disable IPv6
       win_regedit:
