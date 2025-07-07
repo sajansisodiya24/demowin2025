@@ -7,5 +7,5 @@
       win_regedit:
         path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters
         name: DisabledComponents
-        data: 32
+        data: 0xff
         type: dword
