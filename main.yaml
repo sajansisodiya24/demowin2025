@@ -16,17 +16,14 @@
        
 - name: Disable SMBv1 via registry (all Windows versions)
   hosts: all
-      ansible.windows.win_regedit:path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+  gather_facts: no
+  tasks:
+    - name: Disable SMBv1
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
         name: SMB1
-        data: 0type: dword
-      ignore_errors: yes
-
+        data: 0
+        type: dword
       
-##CID-##:Ensure to disable SMBv1 to client"
+      
 
-    - name: Disable SMBv1 client via registry
-      hosts: all
-      ansible.windows.win_regedit:path: HKLM:\SYSTEM\CurrentControlSet\Services\mrxsmb10
-        name: Start
-        data: 4type: dword
-      ignore_errors: yes
