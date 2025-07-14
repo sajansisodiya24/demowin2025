@@ -27,16 +27,16 @@
         
   ##CID-5266:Allow Local System to use computer identity for NTLM
 
-  - name: Allow Local System to use computer identity for NTLM
-    hosts: all
-    gather_facts: no
-    tasks:
-      - name: UseMachineId
-        win_regedit:
-          path: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa
-          name: UseMachineId
-          data: 1
-          type: dword
-          state: present
+- name: Allow Local System to use computer identity for NTLM
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: UseMachineId
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa
+        name: UseMachineId
+        data: 1
+        type: dword
+        state: present
       
 
